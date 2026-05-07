@@ -1,0 +1,18 @@
+RewriteEngine On
+
+RewriteRule ^admin$ admin.php
+RewriteRule ^home$ index.php
+
+
+
+RewriteRule ^listeClients$ views/pages/admin/client/liste.php
+RewriteRule ^corbeilleClients$ views/pages/admin/client/corbeille.php
+
+RewriteRule ^listeServices$ views/pages/admin/services/liste.php
+RewriteRule ^corbeilleServices$ views/pages/admin/services/corbeille.php
+
+RewriteRule ^listeContacts$ views/pages/admin/contact/liste.php
+
+RewriteRule ^listeFaqs$ views/pages/admin/faq/liste.php
+RewriteRule ^corbeilleFaqs$ views/pages/admin/faq/corbeille.php
+
