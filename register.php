@@ -1,8 +1,7 @@
-
 <?php 
 session_start();
 require_once 'controller/MainController.php';
-processLogin();
+processRegister();
 ?>
 <!DOCTYPE html>
 <html lang="en" class="h-100">
@@ -11,7 +10,7 @@ processLogin();
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>SenLogis - Connexion</title>
+    <title>SenLogis - Inscription</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="public/template/templateAdmin/focus-2/images/favicon.png">
     <link href="public/template/templateAdmin/focus-2/css/style.css" rel="stylesheet">
@@ -27,24 +26,17 @@ processLogin();
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">
-                                    <h4 class="text-center mb-4">Se connecter</h4>
+                                    <h4 class="text-center mb-4">S'enregistrer</h4>
                                     <?php if (isset($_SESSION['error'])): ?>
                                         <div class="alert alert-danger" role="alert">
-                                            <?php echo htmlspecialchars($_SESSION['error']); 
-                                            if (isset($_SESSION['redirect_register']) && $_SESSION['redirect_register']): ?>
-                                                <br><a href="register.php" class="btn btn-sm btn-primary mt-2">Aller à l'inscription</a>
-                                            <?php endif;
-                                            unset($_SESSION['error']); 
-                                            unset($_SESSION['redirect_register']);
-                                            ?>
+                                            <?php echo htmlspecialchars($_SESSION['error']); unset($_SESSION['error']); ?>
                                         </div>
                                     <?php endif; ?>
-                                    <?php if (isset($_SESSION['success'])): ?>
-                                        <div class="alert alert-success" role="alert">
-                                            <?php echo htmlspecialchars($_SESSION['success']); unset($_SESSION['success']); ?>
+                                    <form action="register.php" method="POST">
+                                        <div class="form-group">
+                                            <label><strong>Nom Complet</strong></label>
+                                            <input type="text" name="name" class="form-control" required>
                                         </div>
-                                    <?php endif; ?>
-                                    <form action="login.php" method="POST">
                                         <div class="form-group">
                                             <label><strong>Email</strong></label>
                                             <input type="email" name="email" class="form-control" required>
@@ -53,23 +45,16 @@ processLogin();
                                             <label><strong>Mot de passe</strong></label>
                                             <input type="password" name="password" class="form-control" required>
                                         </div>
-                                        <div class="form-row d-flex justify-content-between mt-4 mb-2">
-                                            <div class="form-group">
-                                                <div class="form-check ml-2">
-                                                    <input class="form-check-input" type="checkbox" id="basic_checkbox_1" name="remember">
-                                                    <label class="form-check-label" for="basic_checkbox_1">Se souvenir de moi</label>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <a href="#">Mot de passe oublié ?</a>
-                                            </div>
+                                        <div class="form-group">
+                                            <label><strong>Confirmer le mot de passe</strong></label>
+                                            <input type="password" name="confirm_password" class="form-control" required>
                                         </div>
                                         <div class="text-center">
-                                            <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
+                                            <button type="submit" class="btn btn-primary btn-block">S'enregistrer</button>
                                         </div>
                                     </form>
                                     <div class="new-account mt-3">
-                                        <p>Pas encore de compte ? <a class="text-primary" href="register.php">S'enregistrer</a></p>
+                                        <p>Déjà enregistré ? <a class="text-primary" href="login.php">Se connecter</a></p>
                                     </div>
                                 </div>
                             </div>
@@ -80,16 +65,14 @@ processLogin();
         </div>
     </div>
 
-
     <!--**********************************
         Scripts
     ***********************************-->
     <!-- Required vendors -->
-    <script src="./vendor/global/global.min.js"></script>
-    <script src="./js/quixnav-init.js"></script>
-    <script src="./js/custom.min.js"></script>
+    <script src="public/template/templateAdmin/focus-2/vendor/global/global.min.js"></script>
+    <script src="public/template/templateAdmin/focus-2/js/quixnav-init.js"></script>
+    <script src="public/template/templateAdmin/focus-2/js/custom.min.js"></script>
 
 </body>
 
 </html>
-

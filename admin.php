@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+// Vérifier que l'utilisateur est connecté et est un admin (role_id = 3)
+if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
+    header('Location: login.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
