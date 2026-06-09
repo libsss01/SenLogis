@@ -32,7 +32,6 @@
           <li><a href="public/template/templateVitrine/Logis/service-details.html">Suivi</a></li>
           <li><a href="public/template/templateVitrine/Logis/service-details.html">Transport</a></li>
           <li><a href="public/template/templateVitrine/Logis/service-details.html">Stockage</a></li>
-          <li><a href="public/template/templateVitrine/Logis/get-a-quote.html">Devis</a></li>
           <li><a href="public/template/templateVitrine/Logis/contact.html">Support</a></li>
         </ul>
       </div>
