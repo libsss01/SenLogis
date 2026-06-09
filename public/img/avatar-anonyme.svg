@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" role="img" aria-labelledby="title desc">
+  <title id="title">Avatar anonyme</title>
+  <desc id="desc">Silhouette de profil anonyme sans visage reel.</desc>
+  <rect width="240" height="240" rx="120" fill="#eef2f7"/>
+  <circle cx="120" cy="88" r="42" fill="#9aa6b2"/>
+  <path d="M45 208c8-45 39-72 75-72s67 27 75 72" fill="#9aa6b2"/>
+  <circle cx="120" cy="120" r="112" fill="none" stroke="#d5dce5" stroke-width="16"/>
+</svg>

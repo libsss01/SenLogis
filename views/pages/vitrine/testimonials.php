@@ -24,7 +24,7 @@
 
         <div class="swiper-slide">
           <div class="testimonial-item">
-            <img src="public/template/templateVitrine/Logis/assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
+            <img src="public/img/avatar-anonyme.svg" class="testimonial-img" alt="Avatar anonyme">
             <h3>Karim Benali</h3>
             <h4>Dirigeant PME</h4>
             <div class="stars">
@@ -40,7 +40,7 @@
 
         <div class="swiper-slide">
           <div class="testimonial-item">
-            <img src="public/template/templateVitrine/Logis/assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
+            <img src="public/img/avatar-anonyme.svg" class="testimonial-img" alt="Avatar anonyme">
             <h3>Sarah Wilson</h3>
             <h4>Responsable achats</h4>
             <div class="stars">
@@ -56,7 +56,7 @@
 
         <div class="swiper-slide">
           <div class="testimonial-item">
-            <img src="public/template/templateVitrine/Logis/assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
+            <img src="public/img/avatar-anonyme.svg" class="testimonial-img" alt="Avatar anonyme">
             <h3>Jenna Karis</h3>
             <h4>Gérante de boutique</h4>
             <div class="stars">
@@ -72,7 +72,7 @@
 
         <div class="swiper-slide">
           <div class="testimonial-item">
-            <img src="public/template/templateVitrine/Logis/assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
+            <img src="public/img/avatar-anonyme.svg" class="testimonial-img" alt="Avatar anonyme">
             <h3>Matthieu Brand</h3>
             <h4>Freelance e-commerce</h4>
             <div class="stars">
@@ -88,7 +88,7 @@
 
         <div class="swiper-slide">
           <div class="testimonial-item">
-            <img src="public/template/templateVitrine/Logis/assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
+            <img src="public/img/avatar-anonyme.svg" class="testimonial-img" alt="Avatar anonyme">
             <h3>John Larson</h3>
             <h4>Entrepreneur</h4>
             <div class="stars">

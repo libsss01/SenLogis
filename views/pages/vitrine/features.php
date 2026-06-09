@@ -11,7 +11,7 @@
 
     <div class="row gy-4 align-items-center features-item">
       <div class="col-md-5 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="100">
-        <img src="public/template/templateVitrine/Logis/assets/img/features-1.jpg" class="img-fluid" alt="">
+        <img src="public/template/templateVitrine/Logis/assets/img/service-1.jpg" class="img-fluid" alt="Entrepot logistique">
       </div>
       <div class="col-md-7" data-aos="fade-up" data-aos-delay="100">
         <h3>Une organisation claire pour vos opérations quotidiennes.</h3>
@@ -28,7 +28,7 @@
 
     <div class="row gy-4 align-items-center features-item">
       <div class="col-md-5 order-1 order-md-2 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
-        <img src="public/template/templateVitrine/Logis/assets/img/features-2.jpg" class="img-fluid" alt="">
+        <img src="public/template/templateVitrine/Logis/assets/img/service-4.jpg" class="img-fluid" alt="Camion de transport">
       </div>
       <div class="col-md-7 order-2 order-md-1" data-aos="fade-up" data-aos-delay="200">
         <h3>Des solutions pensées pour gagner du temps.</h3>
@@ -43,7 +43,7 @@
 
     <div class="row gy-4 align-items-center features-item">
       <div class="col-md-5 d-flex align-items-center" data-aos="zoom-out">
-        <img src="public/template/templateVitrine/Logis/assets/img/features-3.jpg" class="img-fluid" alt="">
+        <img src="public/template/templateVitrine/Logis/assets/img/features-4.jpg" class="img-fluid" alt="Navire porte-conteneurs">
       </div>
       <div class="col-md-7" data-aos="fade-up">
         <h3>Un partenaire fiable pour les flux sensibles.</h3>

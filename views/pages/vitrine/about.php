@@ -5,7 +5,7 @@
     <div class="row gy-4">
 
       <div class="col-lg-6 position-relative align-self-start order-lg-last order-first" data-aos="fade-up" data-aos-delay="200">
-        <img src="public/template/templateVitrine/Logis/assets/img/about.jpg" class="img-fluid" alt="">
+        <img src="public/template/templateVitrine/Logis/assets/img/features-4.jpg" class="img-fluid" alt="Conteneurs au port">
         <a href="public/template/templateVitrine/Logis/services.html" class="glightbox pulsating-play-btn"></a>
       </div>
 
