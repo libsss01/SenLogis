@@ -3,16 +3,9 @@ RewriteEngine On
 RewriteRule ^admin$ admin.php
 RewriteRule ^home$ index.php
 
-
-
-RewriteRule ^listeClients$ views/pages/admin/client/liste.php
-RewriteRule ^corbeilleClients$ views/pages/admin/client/corbeille.php
-
-RewriteRule ^listeServices$ views/pages/admin/services/liste.php
-RewriteRule ^corbeilleServices$ views/pages/admin/services/corbeille.php
-
-RewriteRule ^listeContacts$ views/pages/admin/contact/liste.php
-
-RewriteRule ^listeFaqs$ views/pages/admin/faq/liste.php
-RewriteRule ^corbeilleFaqs$ views/pages/admin/faq/corbeille.php
-
+RewriteRule ^listeUsers$ views/pages/admin/users/liste.php
+RewriteRule ^listeConteneurs$ views/pages/admin/conteneurs/liste.php
+RewriteRule ^listeLivraisons$ views/pages/admin/livraisons/liste.php
+RewriteRule ^listeCommandes$ views/pages/admin/commandes/liste.php
+RewriteRule ^listePaiements$ views/pages/admin/paiements/liste.php
+RewriteRule ^listeNotes$ views/pages/admin/notes/liste.php

@@ -7,10 +7,9 @@
             Nav header start
         ***********************************-->
         <div class="nav-header">
-            <a href="admin.php" class="brand-logo">
-                <img class="logo-abbr" src="public/template/templateAdmin/focus-2/images/logo.png" alt="">
-                <img class="logo-compact" src="public/template/templateAdmin/focus-2/images/logo-text.png" alt="">
-                <img class="brand-title" src="public/template/templateAdmin/focus-2/images/logo-text.png" alt="">
+            <a href="/SenLogis/admin" class="brand-logo senlogis-brand">
+                <span class="senlogis-mark">SL</span>
+                <span class="senlogis-name">SenLogis</span>
             </a>
 
             <div class="nav-control">

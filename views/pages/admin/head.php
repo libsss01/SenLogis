@@ -7,13 +7,16 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>SenLogis - Administration</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="public/template/templateAdmin/focus-2/images/favicon.png">
-    <link rel="stylesheet" href="public/template/templateAdmin/focus-2/vendor/owl-carousel/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="public/template/templateAdmin/focus-2/vendor/owl-carousel/css/owl.theme.default.min.css">
-    <link href="public/template/templateAdmin/focus-2/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
-    <link href="public/template/templateAdmin/focus-2/icons/avasta/css/style.css" rel="stylesheet">
-    <link href="public/template/templateAdmin/focus-2/icons/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
-    <link href="public/template/templateAdmin/focus-2/css/style.css" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="16x16" href="/SenLogis/public/template/templateAdmin/focus-2/images/favicon.png">
+    <link rel="stylesheet" href="/SenLogis/public/template/templateAdmin/focus-2/vendor/owl-carousel/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/SenLogis/public/template/templateAdmin/focus-2/vendor/owl-carousel/css/owl.theme.default.min.css">
+    <link href="/SenLogis/public/template/templateAdmin/focus-2/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
+    <link href="/SenLogis/public/template/templateAdmin/focus-2/icons/avasta/css/style.css" rel="stylesheet">
+    <link href="/SenLogis/public/template/templateAdmin/focus-2/icons/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+    <link href="/SenLogis/public/template/templateAdmin/focus-2/icons/font-awesome-old/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/SenLogis/public/template/templateAdmin/focus-2/icons/material-design-iconic-font/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="/SenLogis/public/template/templateAdmin/focus-2/css/style.css" rel="stylesheet">
+    <link href="/SenLogis/public/css/admin-custom.css" rel="stylesheet">
 
 </head>
 
