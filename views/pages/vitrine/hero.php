@@ -5,8 +5,10 @@
   <div class="container">
     <div class="row gy-4 d-flex justify-content-between">
       <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
-        <h2 data-aos="fade-up">Votre partenaire logistique fiable et réactif</h2>
-        <p data-aos="fade-up" data-aos-delay="100">SenLogis accompagne vos envois, vos stocks et vos livraisons avec des solutions simples, rapides et adaptées aux besoins des particuliers comme des professionnels.</p>
+        <h2 data-aos="fade-up">Suivez et gerez vos conteneurs au Senegal et partez dans le monde !</h2>
+        <p data-aos="fade-up" data-aos-delay="100">SenLogis centralise les conteneurs, les livraisons, les commandes et les
+paiements simules pour faciliter le suivi logistique entre Dakar et les autres
+zones du Senegal.</p>
 
         <form action="#" class="form-search d-flex align-items-stretch mb-3" data-aos="fade-up" data-aos-delay="200">
           <input type="text" class="form-control" placeholder="Ville, code postal ou type de livraison">

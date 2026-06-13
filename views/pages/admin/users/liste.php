@@ -5,6 +5,10 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
     header('Location: /SenLogis/login.php');
     exit;
 }
+
+require_once __DIR__ . '/../../../../model/userDB.php';
+
+$users = getAllUsersForAdmin();
 ?>
 <?php require_once __DIR__ . '/../head.php'; ?>
 <?php require_once __DIR__ . '/../preloader.php'; ?>
@@ -53,9 +57,60 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td colspan="8" class="text-center text-muted">Les utilisateurs seront affiches ici apres branchement du model.</td>
-                            </tr>
+                            <?php if (empty($users)): ?>
+                                <tr>
+                                    <td colspan="8" class="text-center text-muted">Il n'existe pour le moment aucun utilisateur.</td>
+                                </tr>
+                            <?php else: ?>
+                                <?php foreach ($users as $user): ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($user['id']); ?></td>
+                                        <td><?php echo htmlspecialchars($user['prenom']); ?></td>
+                                        <td><?php echo htmlspecialchars($user['nom']); ?></td>
+                                        <td><?php echo htmlspecialchars($user['email']); ?></td>
+                                        <td><?php echo htmlspecialchars($user['telephone'] ?: '-'); ?></td>
+                                        <td><?php echo htmlspecialchars($user['role_nom']); ?></td>
+                                        <td><?php echo htmlspecialchars($user['etat']); ?></td>
+                                        <td>
+                                            <button
+                                                type="button"
+                                                class="btn btn-sm btn-warning btn-edit-user"
+                                                data-toggle="modal"
+                                                data-target="#editUserModal"
+                                                data-id="<?php echo htmlspecialchars($user['id']); ?>"
+                                                data-prenom="<?php echo htmlspecialchars($user['prenom']); ?>"
+                                                data-nom="<?php echo htmlspecialchars($user['nom']); ?>"
+                                                data-email="<?php echo htmlspecialchars($user['email']); ?>"
+                                                data-telephone="<?php echo htmlspecialchars($user['telephone']); ?>"
+                                                data-role-id="<?php echo htmlspecialchars($user['role_id']); ?>">
+                                                Modifier
+                                            </button>
+
+                                            <?php if ($user['etat'] === 'Actif'): ?>
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-sm btn-danger btn-block-user"
+                                                    data-toggle="modal"
+                                                    data-target="#blockUserModal"
+                                                    data-id="<?php echo htmlspecialchars($user['id']); ?>"
+                                                    data-nom="<?php echo htmlspecialchars($user['prenom'] . ' ' . $user['nom']); ?>">
+                                                    Bloquer
+                                                </button>
+                                            <?php else: ?>
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-sm btn-success btn-activate-user"
+                                                    data-toggle="modal"
+                                                    data-target="#activateUserModal"
+                                                    data-id="<?php echo htmlspecialchars($user['id']); ?>"
+                                                    data-nom="<?php echo htmlspecialchars($user['prenom'] . ' ' . $user['nom']); ?>">
+                                                    Reactiver
+                                                </button>
+                                            <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
@@ -165,7 +220,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="id" id="block_user_id">
-                    <p>Voulez-vous bloquer cet utilisateur ? Il ne pourra plus se connecter.</p>
+                    <p>Voulez-vous bloquer <strong id="block_user_nom"></strong> ? Il ne pourra plus se connecter.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
@@ -186,7 +241,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="id" id="activate_user_id">
-                    <p>Voulez-vous reactiver cet utilisateur ?</p>
+                    <p>Voulez-vous reactiver <strong id="activate_user_nom"></strong> ?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
@@ -196,6 +251,35 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.btn-edit-user').forEach(function (button) {
+        button.addEventListener('click', function () {
+            document.getElementById('edit_user_id').value = this.dataset.id;
+            document.getElementById('edit_user_prenom').value = this.dataset.prenom;
+            document.getElementById('edit_user_nom').value = this.dataset.nom;
+            document.getElementById('edit_user_email').value = this.dataset.email;
+            document.getElementById('edit_user_telephone').value = this.dataset.telephone;
+            document.getElementById('edit_user_role_id').value = this.dataset.roleId;
+        });
+    });
+
+    document.querySelectorAll('.btn-block-user').forEach(function (button) {
+        button.addEventListener('click', function () {
+            document.getElementById('block_user_id').value = this.dataset.id;
+            document.getElementById('block_user_nom').textContent = this.dataset.nom;
+        });
+    });
+
+    document.querySelectorAll('.btn-activate-user').forEach(function (button) {
+        button.addEventListener('click', function () {
+            document.getElementById('activate_user_id').value = this.dataset.id;
+            document.getElementById('activate_user_nom').textContent = this.dataset.nom;
+        });
+    });
+});
+</script>
 
 <?php require_once __DIR__ . '/../footer.php'; ?>
 <?php require_once __DIR__ . '/../scripts.php'; ?>

@@ -41,7 +41,12 @@ CREATE TABLE conteneurs (
   nom VARCHAR(80) NOT NULL UNIQUE,
   statut ENUM('disponible', 'reserve', 'en_livraison', 'maintenance') NOT NULL DEFAULT 'disponible',
   position VARCHAR(150) NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  proprietaire_id INT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_conteneurs_proprietaires
+    FOREIGN KEY (proprietaire_id) REFERENCES users(id)
+    ON UPDATE CASCADE
+    ON DELETE RESTRICT
 ) ENGINE=InnoDB;
 
 CREATE TABLE livraisons (
@@ -123,12 +128,12 @@ INSERT INTO users (id, nom, prenom, email, motDePasse, telephone, etat, role_id)
   (3, 'Sarr', 'Ibrahima', 'proprietaire@senlogis.test', '$2y$10$ngYm7dmQR0mZA3p.BnXnOec6uqkqmkwV28vyzvdeqZJcF/Jd4eFBC', '+221 77 200 00 01', 'Actif', 2),
   (4, 'SenLogis', 'Administrateur', 'admin@senlogis.test', '$2y$10$ngYm7dmQR0mZA3p.BnXnOec6uqkqmkwV28vyzvdeqZJcF/Jd4eFBC', '+221 77 300 00 01', 'Actif', 3);
 
-INSERT INTO conteneurs (id, nom, statut, position) VALUES
-  (1, 'CONT-DKR-001', 'en_livraison', 'Port autonome de Dakar'),
-  (2, 'CONT-DKR-002', 'disponible', 'Rufisque'),
-  (3, 'CONT-DKR-003', 'reserve', 'Diamniadio'),
-  (4, 'CONT-DKR-004', 'maintenance', 'Thies'),
-  (5, 'CONT-DKR-005', 'en_livraison', 'Mbour');
+INSERT INTO conteneurs (id, nom, statut, position, proprietaire_id) VALUES
+  (1, 'CONT-DKR-001', 'en_livraison', 'Port autonome de Dakar', 3),
+  (2, 'CONT-DKR-002', 'disponible', 'Rufisque', 3),
+  (3, 'CONT-DKR-003', 'reserve', 'Diamniadio', 3),
+  (4, 'CONT-DKR-004', 'maintenance', 'Thies', 3),
+  (5, 'CONT-DKR-005', 'en_livraison', 'Mbour', 3);
 
 INSERT INTO livraisons (id, adresse, dateLivraison, statut, user_id, conteneur_id) VALUES
   (1, 'Plateau, Dakar', '2026-06-12', 'en_cours', 1, 1),

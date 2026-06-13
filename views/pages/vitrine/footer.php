@@ -32,18 +32,17 @@
           <li><a href="public/template/templateVitrine/Logis/service-details.html">Suivi</a></li>
           <li><a href="public/template/templateVitrine/Logis/service-details.html">Transport</a></li>
           <li><a href="public/template/templateVitrine/Logis/service-details.html">Stockage</a></li>
-          <li><a href="public/template/templateVitrine/Logis/get-a-quote.html">Devis</a></li>
           <li><a href="public/template/templateVitrine/Logis/contact.html">Support</a></li>
         </ul>
       </div>
 
       <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
         <h4>Contact Us</h4>
-        <p>A108 Adam Street</p>
-        <p>New York, NY 535022</p>
-        <p>United States</p>
-        <p class="mt-4"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-        <p><strong>Email:</strong> <span>info@example.com</span></p>
+        <p>Port Autonome de Dakar</p>
+        <p>Dakar</p>
+        <p>Sénégal</p>
+        <p class="mt-4"><strong>Phone:</strong> <span>+221 77 123 43 23</span></p>
+        <p><strong>Email:</strong> <span>contact@senlogis.sn</span></p>
       </div>
 
     </div>

@@ -4,8 +4,7 @@ require_once __DIR__ . "/Model.php";
 /**
  * Creer un compte utilisateur.
  */
-function createUser($nom, $prenom, $email, $motDePasse, $telephone = null, $roleId = 1)
-{
+function createUser($nom, $prenom, $email, $motDePasse, $telephone = null, $roleId = 1){
     $sql = "INSERT INTO users (nom, prenom, email, motDePasse, telephone, role_id, etat)
             VALUES (:nom, :prenom, :email, :motDePasse, :telephone, :role_id, 'Actif')";
 
@@ -28,8 +27,7 @@ function createUser($nom, $prenom, $email, $motDePasse, $telephone = null, $role
 /**
  * Recuperer un utilisateur via son email.
  */
-function getUserByEmail($email)
-{
+function getUserByEmail($email){
     $sql = "SELECT * FROM users WHERE email = :email";
 
     $requeteSecurisee = getConnexion()->prepare($sql);
@@ -43,8 +41,7 @@ function getUserByEmail($email)
 /**
  * Authentifier un utilisateur actif.
  */
-function loginUser($email, $password)
-{
+function loginUser($email, $password){
     $user = getUserByEmail($email);
 
     if (!$user) {
@@ -81,8 +78,7 @@ function loginUser($email, $password)
 /**
  * Recuperer tous les utilisateurs selon leur etat.
  */
-function getAllUsers($etat = 'Actif')
-{
+function getAllUsers($etat = 'Actif'){
     $sql = "SELECT users.*, roles.nom AS role_nom
             FROM users
             INNER JOIN roles ON roles.id = users.role_id
@@ -98,10 +94,63 @@ function getAllUsers($etat = 'Actif')
 }
 
 /**
+ * Recuperer tous les utilisateurs, actifs et bloques.
+ */
+function getAllUsersForAdmin(){
+
+    $sql = "SELECT users.*, roles.nom AS role_nom
+            FROM users
+            INNER JOIN roles ON roles.id = users.role_id
+            ORDER BY users.id DESC";
+
+    $requeteSecurisee = getConnexion()->prepare($sql);
+    $requeteSecurisee->execute();
+
+    return $requeteSecurisee->fetchAll(PDO::FETCH_ASSOC);
+}
+
+/**
+ * Compter les lignes d'une table autorisee pour le dashboard.
+ */
+function countTableRows($table){
+    $allowedTables = ['users', 'conteneurs', 'livraisons', 'commandes', 'paiements', 'notes'];
+
+    if (!in_array($table, $allowedTables, true)) {
+        return 0;
+    }
+
+    $sql = "SELECT COUNT(*) AS total FROM " . $table;
+    $requeteSecurisee = getConnexion()->prepare($sql);
+    $requeteSecurisee->execute();
+
+    $result = $requeteSecurisee->fetch(PDO::FETCH_ASSOC);
+    return $result ? (int) $result['total'] : 0;
+}
+
+/**
+ * Recuperer les utilisateurs actifs ayant un role precis.
+ */
+function getUsersByRole($roleId, $etat = 'Actif'){
+    $sql = "SELECT users.*, roles.nom AS role_nom
+            FROM users
+            INNER JOIN roles ON roles.id = users.role_id
+            WHERE users.role_id = :role_id
+            AND users.etat = :etat
+            ORDER BY users.nom ASC";
+
+    $requeteSecurisee = getConnexion()->prepare($sql);
+    $requeteSecurisee->execute([
+        'role_id' => $roleId,
+        'etat' => $etat
+    ]);
+
+    return $requeteSecurisee->fetchAll(PDO::FETCH_ASSOC);
+}
+
+/**
  * Recuperer un utilisateur via son id.
  */
-function getUserById($id)
-{
+function getUserById($id){
     $sql = "SELECT * FROM users WHERE id = :id";
 
     $requeteSecurisee = getConnexion()->prepare($sql);
@@ -115,8 +164,7 @@ function getUserById($id)
 /**
  * Modifier les informations principales d'un utilisateur.
  */
-function updateUser($id, $nom, $prenom, $email, $telephone, $roleId)
-{
+function updateUser($id, $nom, $prenom, $email, $telephone, $roleId){
     $sql = "UPDATE users
             SET nom = :nom,
                 prenom = :prenom,
@@ -139,8 +187,7 @@ function updateUser($id, $nom, $prenom, $email, $telephone, $roleId)
 /**
  * Bloquer un utilisateur sans le supprimer physiquement.
  */
-function blockUser($id)
-{
+function blockUser($id){
     $sql = "UPDATE users SET etat = 'Bloque' WHERE id = :id";
 
     $requeteSecurisee = getConnexion()->prepare($sql);
@@ -152,8 +199,7 @@ function blockUser($id)
 /**
  * Reactiver un utilisateur bloque.
  */
-function activateUser($id)
-{
+function activateUser($id){
     $sql = "UPDATE users SET etat = 'Actif' WHERE id = :id";
 
     $requeteSecurisee = getConnexion()->prepare($sql);

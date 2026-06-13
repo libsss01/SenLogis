@@ -5,6 +5,14 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
     header('Location: /SenLogis/login.php');
     exit;
 }
+
+require_once __DIR__ . '/../../../../model/commandeDB.php';
+require_once __DIR__ . '/../../../../model/userDB.php';
+require_once __DIR__ . '/../../../../model/livraisonDB.php';
+
+$commandes = getAllCommandes();
+$clients = getUsersByRole(1);
+$livraisons = getAllLivraisons();
 ?>
 <?php require_once __DIR__ . '/../head.php'; ?>
 <?php require_once __DIR__ . '/../preloader.php'; ?>
@@ -52,9 +60,52 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td colspan="7" class="text-center text-muted">Les commandes seront affichees ici apres branchement du model.</td>
-                            </tr>
+                            <?php if (empty($commandes)): ?>
+                                <tr>
+                                    <td colspan="7" class="text-center text-muted">
+                                        Il n'existe pour le moment aucune commande.
+                                    </td>
+                                </tr>
+                            <?php else: ?>
+                                <?php foreach ($commandes as $commande): ?>
+                                    <?php
+                                        $clientNom = trim($commande['user_prenom'] . ' ' . $commande['user_nom']);
+                                        $livraisonLabel = '#' . $commande['livraison_id'] . ' - ' . $commande['livraison_adresse'] . ' / ' . $commande['conteneur_nom'];
+                                    ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($commande['id']); ?></td>
+                                        <td><?php echo htmlspecialchars($commande['date']); ?></td>
+                                        <td><?php echo htmlspecialchars($commande['statut']); ?></td>
+                                        <td><?php echo htmlspecialchars($commande['methode']); ?></td>
+                                        <td><?php echo htmlspecialchars($clientNom); ?></td>
+                                        <td><?php echo htmlspecialchars($livraisonLabel); ?></td>
+                                        <td>
+                                            <button
+                                                type="button"
+                                                class="btn btn-sm btn-warning btn-edit-commande"
+                                                data-toggle="modal"
+                                                data-target="#editCommandeModal"
+                                                data-id="<?php echo htmlspecialchars($commande['id']); ?>"
+                                                data-date="<?php echo htmlspecialchars($commande['date']); ?>"
+                                                data-statut="<?php echo htmlspecialchars($commande['statut']); ?>"
+                                                data-methode="<?php echo htmlspecialchars($commande['methode']); ?>"
+                                                data-user-id="<?php echo htmlspecialchars($commande['user_id']); ?>"
+                                                data-livraison-id="<?php echo htmlspecialchars($commande['livraison_id']); ?>">
+                                                Modifier
+                                            </button>
+                                            <button
+                                                type="button"
+                                                class="btn btn-sm btn-danger btn-delete-commande"
+                                                data-toggle="modal"
+                                                data-target="#deleteCommandeModal"
+                                                data-id="<?php echo htmlspecialchars($commande['id']); ?>"
+                                                data-label="<?php echo htmlspecialchars('#' . $commande['id'] . ' - ' . $clientNom); ?>">
+                                                Supprimer
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
@@ -94,12 +145,26 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>ID utilisateur</label>
-                        <input type="number" name="user_id" class="form-control" required>
+                        <label>Client</label>
+                        <select name="user_id" class="form-control" required>
+                            <option value="">Choisir un client</option>
+                            <?php foreach ($clients as $client): ?>
+                                <option value="<?php echo htmlspecialchars($client['id']); ?>">
+                                    <?php echo htmlspecialchars($client['prenom'] . ' ' . $client['nom']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label>ID livraison</label>
-                        <input type="number" name="livraison_id" class="form-control" required>
+                        <label>Livraison</label>
+                        <select name="livraison_id" class="form-control" required>
+                            <option value="">Choisir une livraison</option>
+                            <?php foreach ($livraisons as $livraison): ?>
+                                <option value="<?php echo htmlspecialchars($livraison['id']); ?>">
+                                    <?php echo htmlspecialchars('#' . $livraison['id'] . ' - ' . $livraison['adresse'] . ' / ' . $livraison['conteneur_nom']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -143,12 +208,26 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>ID utilisateur</label>
-                        <input type="number" name="user_id" id="edit_commande_user_id" class="form-control" required>
+                        <label>Client</label>
+                        <select name="user_id" id="edit_commande_user_id" class="form-control" required>
+                            <option value="">Choisir un client</option>
+                            <?php foreach ($clients as $client): ?>
+                                <option value="<?php echo htmlspecialchars($client['id']); ?>">
+                                    <?php echo htmlspecialchars($client['prenom'] . ' ' . $client['nom']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label>ID livraison</label>
-                        <input type="number" name="livraison_id" id="edit_commande_livraison_id" class="form-control" required>
+                        <label>Livraison</label>
+                        <select name="livraison_id" id="edit_commande_livraison_id" class="form-control" required>
+                            <option value="">Choisir une livraison</option>
+                            <?php foreach ($livraisons as $livraison): ?>
+                                <option value="<?php echo htmlspecialchars($livraison['id']); ?>">
+                                    <?php echo htmlspecialchars('#' . $livraison['id'] . ' - ' . $livraison['adresse'] . ' / ' . $livraison['conteneur_nom']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -170,7 +249,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="id" id="delete_commande_id">
-                    <p>Voulez-vous vraiment supprimer cette commande ?</p>
+                    <p>Voulez-vous vraiment supprimer la commande <strong id="delete_commande_label"></strong> ?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
@@ -180,6 +259,28 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.btn-edit-commande').forEach(function (button) {
+        button.addEventListener('click', function () {
+            document.getElementById('edit_commande_id').value = this.dataset.id;
+            document.getElementById('edit_commande_date').value = this.dataset.date;
+            document.getElementById('edit_commande_statut').value = this.dataset.statut;
+            document.getElementById('edit_commande_methode').value = this.dataset.methode;
+            document.getElementById('edit_commande_user_id').value = this.dataset.userId;
+            document.getElementById('edit_commande_livraison_id').value = this.dataset.livraisonId;
+        });
+    });
+
+    document.querySelectorAll('.btn-delete-commande').forEach(function (button) {
+        button.addEventListener('click', function () {
+            document.getElementById('delete_commande_id').value = this.dataset.id;
+            document.getElementById('delete_commande_label').textContent = this.dataset.label;
+        });
+    });
+});
+</script>
 
 <?php require_once __DIR__ . '/../footer.php'; ?>
 <?php require_once __DIR__ . '/../scripts.php'; ?>

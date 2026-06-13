@@ -19,66 +19,6 @@
                         </div>
 
                         <ul class="navbar-nav header-right">
-                            <li class="nav-item dropdown notification_dropdown">
-                                <a class="nav-link" href="#" role="button" data-toggle="dropdown">
-                                    <i class="mdi mdi-bell"></i>
-                                    <div class="pulse-css"></div>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <ul class="list-unstyled">
-                                        <li class="media dropdown-item">
-                                            <span class="success"><i class="ti-user"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong>Martin</strong> a ajouté un <strong>client</strong> avec succès
-                                                    </p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="primary"><i class="ti-shopping-cart"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong>Jennifer</strong> a validé une nouvelle expédition.</p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="danger"><i class="ti-bookmark"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong>Robin</strong> a signalé un <strong>ticket</strong> en attente.
-                                                    </p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="primary"><i class="ti-heart"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong>David</strong> a confirmé un suivi de livraison.</p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="success"><i class="ti-image"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong> James.</strong> a ajouté un <strong>client</strong> avec succès
-                                                    </p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                    </ul>
-                                        <a class="all-notification" href="#">Voir toutes les notifications <i
-                                            class="ti-arrow-right"></i></a>
-                                </div>
-                            </li>
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="#" role="button" data-toggle="dropdown">
                                     <i class="mdi mdi-account"></i>
@@ -86,11 +26,11 @@
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a href="/SenLogis/user.php" class="dropdown-item">
                                         <i class="icon-user"></i>
-                                        <span class="ml-2">Profil </span>
+                                        <span class="ml-2">Profil</span>
                                     </a>
                                     <a href="/SenLogis/controller/authController.php?action=logout" class="dropdown-item">
                                         <i class="icon-key"></i>
-                                        <span class="ml-2">Déconnexion </span>
+                                        <span class="ml-2">Deconnexion</span>
                                     </a>
                                 </div>
                             </li>
@@ -100,5 +40,5 @@
             </div>
         </div>
         <!--**********************************
-            Header end ti-comment-alt
+            Header end
         ***********************************-->

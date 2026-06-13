@@ -56,8 +56,7 @@
     <!-- =========================== SECTION Fonctionnalités ! ====================-->
     <?php require_once("views/pages/vitrine/features.php"); ?>
 
-    <!-- =========================== SECTION PRICING ====================-->
-    <?php require_once("views/pages/vitrine/pricing.php"); ?>
+
 
     <!-- =========================== SECTION TEMOIGNAGES  ====================-->
     <?php require_once("views/pages/vitrine/testimonials.php"); ?>

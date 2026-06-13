@@ -12,7 +12,6 @@
           <li><a href="index.php" class="active">Accueil<br></a></li>
           <li><a href="public/template/templateVitrine/Logis/about.html">À propos</a></li>
           <li><a href="public/template/templateVitrine/Logis/services.html">Services</a></li>
-          <li><a href="public/template/templateVitrine/Logis/pricing.html">Tarifs</a></li>
           <li class="dropdown"><a href="public/template/templateVitrine/Logis/starter-page.html"><span>Solutions</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
               <li><a href="public/template/templateVitrine/Logis/service-details.html">Suivi</a></li>
@@ -21,13 +20,10 @@
                   <li><a href="public/template/templateVitrine/Logis/about.html">Stockage</a></li>
                   <li><a href="public/template/templateVitrine/Logis/services.html">Transport</a></li>
                   <li><a href="public/template/templateVitrine/Logis/service-details.html">Fret</a></li>
-                  <li><a href="public/template/templateVitrine/Logis/pricing.html">Devis</a></li>
                   <li><a href="public/template/templateVitrine/Logis/contact.html">Contact</a></li>
                 </ul>
               </li>
-              <li><a href="public/template/templateVitrine/Logis/pricing.html">Offres</a></li>
               <li><a href="public/template/templateVitrine/Logis/contact.html">Contact rapide</a></li>
-              <li><a href="public/template/templateVitrine/Logis/get-a-quote.html">Demande de devis</a></li>
             </ul>
           </li>
           <li><a href="public/template/templateVitrine/Logis/contact.html">Contact</a></li>

@@ -22,13 +22,19 @@ if (isset($_POST['btnAddConteneur'])) {
     $nom = trim($_POST['nom'] ?? '');
     $statut = trim($_POST['statut'] ?? '');
     $position = trim($_POST['position'] ?? '');
+    $proprietaire_id = trim($_POST['proprietaire_id'] ?? '');
 
-    if (empty($nom) || empty($statut) || empty($position)) {
+    if (empty($nom) || empty($statut) || empty($position) || empty($proprietaire_id)) {
         $_SESSION['error'] = 'Tous les champs sont requis';
         redirectConteneurs();
     }
 
-    if (addConteneur($nom, $statut, $position)) {
+    if (!isValidId($proprietaire_id)) {
+        $_SESSION['error'] = 'Proprietaire invalide';
+        redirectConteneurs();
+    }
+
+    if (addConteneur($nom, $statut, $position, $proprietaire_id)) {
         $_SESSION['success'] = 'Conteneur ajouté avec succès';
     } else {
         $_SESSION['error'] = "Erreur lors de l'ajout du conteneur";
@@ -43,18 +49,24 @@ if (isset($_POST['btnUpdateConteneur'])) {
     $nom = trim($_POST['nom'] ?? '');
     $statut = trim($_POST['statut'] ?? '');
     $position = trim($_POST['position'] ?? '');
+    $proprietaire_id = trim($_POST['proprietaire_id'] ?? '');
 
     if (!isValidId($id)) {
         $_SESSION['error'] = 'Identifiant du conteneur invalide';
         redirectConteneurs();
     }
 
-    if (empty($nom) || empty($statut) || empty($position)) {
+    if (empty($nom) || empty($statut) || empty($position) || empty($proprietaire_id)) {
         $_SESSION['error'] = 'Tous les champs sont requis';
         redirectConteneurs();
     }
 
-    if (updateConteneur($id, $nom, $statut, $position)) {
+    if (!isValidId($proprietaire_id)) {
+        $_SESSION['error'] = 'Proprietaire invalide';
+        redirectConteneurs();
+    }
+
+    if (updateConteneur($id, $nom, $statut, $position, $proprietaire_id)) {
         $_SESSION['success'] = 'Conteneur modifié avec succès';
     } else {
         $_SESSION['error'] = 'Erreur lors de la modification du conteneur';

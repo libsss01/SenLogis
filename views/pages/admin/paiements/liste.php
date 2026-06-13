@@ -5,6 +5,12 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
     header('Location: /SenLogis/login.php');
     exit;
 }
+
+require_once __DIR__ . '/../../../../model/paiementDB.php';
+require_once __DIR__ . '/../../../../model/commandeDB.php';
+
+$paiements = getAllPaiements();
+$commandes = getAllCommandes();
 ?>
 <?php require_once __DIR__ . '/../head.php'; ?>
 <?php require_once __DIR__ . '/../preloader.php'; ?>
@@ -52,9 +58,50 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td colspan="7" class="text-center text-muted">Les paiements seront affiches ici apres branchement du model.</td>
-                            </tr>
+                            <?php if (empty($paiements)): ?>
+                                <tr>
+                                    <td colspan="7" class="text-center text-muted">Il n'existe pour le moment aucun paiement.</td>
+                                </tr>
+                            <?php else: ?>
+                                <?php foreach ($paiements as $paiement): ?>
+                                    <?php
+                                        $clientNom = trim($paiement['user_prenom'] . ' ' . $paiement['user_nom']);
+                                        $commandeLabel = '#' . $paiement['commande_id'] . ' - ' . $clientNom . ' / ' . $paiement['conteneur_nom'];
+                                    ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($paiement['id']); ?></td>
+                                        <td><?php echo htmlspecialchars(number_format($paiement['montant'], 0, ',', ' ')); ?> FCFA</td>
+                                        <td><?php echo htmlspecialchars($paiement['methode']); ?></td>
+                                        <td><?php echo htmlspecialchars($paiement['statut']); ?></td>
+                                        <td><?php echo htmlspecialchars($paiement['reference']); ?></td>
+                                        <td><?php echo htmlspecialchars($commandeLabel); ?></td>
+                                        <td>
+                                            <button
+                                                type="button"
+                                                class="btn btn-sm btn-warning btn-edit-paiement"
+                                                data-toggle="modal"
+                                                data-target="#editPaiementModal"
+                                                data-id="<?php echo htmlspecialchars($paiement['id']); ?>"
+                                                data-montant="<?php echo htmlspecialchars($paiement['montant']); ?>"
+                                                data-methode="<?php echo htmlspecialchars($paiement['methode']); ?>"
+                                                data-statut="<?php echo htmlspecialchars($paiement['statut']); ?>"
+                                                data-reference="<?php echo htmlspecialchars($paiement['reference']); ?>"
+                                                data-commande-id="<?php echo htmlspecialchars($paiement['commande_id']); ?>">
+                                                Modifier
+                                            </button>
+                                            <button
+                                                type="button"
+                                                class="btn btn-sm btn-danger btn-delete-paiement"
+                                                data-toggle="modal"
+                                                data-target="#deletePaiementModal"
+                                                data-id="<?php echo htmlspecialchars($paiement['id']); ?>"
+                                                data-reference="<?php echo htmlspecialchars($paiement['reference']); ?>">
+                                                Supprimer
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
@@ -98,8 +145,19 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
                         <input type="text" name="reference" class="form-control" placeholder="PAY-20260610-001" required>
                     </div>
                     <div class="form-group">
-                        <label>ID commande</label>
-                        <input type="number" name="commande_id" class="form-control" required>
+                        <label>Commande</label>
+                        <select name="commande_id" class="form-control" required>
+                            <option value="">Choisir une commande</option>
+                            <?php foreach ($commandes as $commande): ?>
+                                <?php
+                                    $clientNom = trim($commande['user_prenom'] . ' ' . $commande['user_nom']);
+                                    $commandeLabel = '#' . $commande['id'] . ' - ' . $clientNom . ' / ' . $commande['conteneur_nom'];
+                                ?>
+                                <option value="<?php echo htmlspecialchars($commande['id']); ?>">
+                                    <?php echo htmlspecialchars($commandeLabel); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -147,8 +205,19 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
                         <input type="text" name="reference" id="edit_paiement_reference" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label>ID commande</label>
-                        <input type="number" name="commande_id" id="edit_paiement_commande_id" class="form-control" required>
+                        <label>Commande</label>
+                        <select name="commande_id" id="edit_paiement_commande_id" class="form-control" required>
+                            <option value="">Choisir une commande</option>
+                            <?php foreach ($commandes as $commande): ?>
+                                <?php
+                                    $clientNom = trim($commande['user_prenom'] . ' ' . $commande['user_nom']);
+                                    $commandeLabel = '#' . $commande['id'] . ' - ' . $clientNom . ' / ' . $commande['conteneur_nom'];
+                                ?>
+                                <option value="<?php echo htmlspecialchars($commande['id']); ?>">
+                                    <?php echo htmlspecialchars($commandeLabel); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -170,7 +239,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="id" id="delete_paiement_id">
-                    <p>Voulez-vous vraiment supprimer ce paiement simule ?</p>
+                    <p>Voulez-vous vraiment supprimer le paiement <strong id="delete_paiement_reference"></strong> ?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
@@ -180,6 +249,28 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.btn-edit-paiement').forEach(function (button) {
+        button.addEventListener('click', function () {
+            document.getElementById('edit_paiement_id').value = this.dataset.id;
+            document.getElementById('edit_paiement_montant').value = this.dataset.montant;
+            document.getElementById('edit_paiement_methode').value = this.dataset.methode;
+            document.getElementById('edit_paiement_statut').value = this.dataset.statut;
+            document.getElementById('edit_paiement_reference').value = this.dataset.reference;
+            document.getElementById('edit_paiement_commande_id').value = this.dataset.commandeId;
+        });
+    });
+
+    document.querySelectorAll('.btn-delete-paiement').forEach(function (button) {
+        button.addEventListener('click', function () {
+            document.getElementById('delete_paiement_id').value = this.dataset.id;
+            document.getElementById('delete_paiement_reference').textContent = this.dataset.reference;
+        });
+    });
+});
+</script>
 
 <?php require_once __DIR__ . '/../footer.php'; ?>
 <?php require_once __DIR__ . '/../scripts.php'; ?>

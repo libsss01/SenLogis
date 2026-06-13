@@ -6,7 +6,9 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
     exit;
 }
 require_once __DIR__ . '/../../../../model/conteneurDB.php';
+require_once __DIR__ . '/../../../../model/userDB.php';
 $conteneurs = getAllConteneurs();
+$proprietaires = getUsersByRole(2);
 ?>
 <?php require_once __DIR__ . '/../head.php'; ?>
 <?php require_once __DIR__ . '/../preloader.php'; ?>
@@ -53,13 +55,14 @@ $conteneurs = getAllConteneurs();
                                 <th>Nom</th>
                                 <th>Statut</th>
                                 <th>Position</th>
+                                <th>Proprietaire</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                         <?php if (empty($conteneurs)): ?>
                             <tr>
-                                <td colspan="5" class="text-center text-muted">
+                                <td colspan="6" class="text-center text-muted">
                                     Aucun conteneur enregistré.
                                 </td>
                             </tr>
@@ -70,6 +73,7 @@ $conteneurs = getAllConteneurs();
                                     <td><?php echo htmlspecialchars($conteneur['nom']); ?></td>
                                     <td><?php echo htmlspecialchars($conteneur['statut']); ?></td>
                                     <td><?php echo htmlspecialchars($conteneur['position']); ?></td>
+                                    <td><?php echo htmlspecialchars($conteneur['proprietaire_prenom'] . ' ' . $conteneur['proprietaire_nom']); ?></td>
                                     <td>
                                         <button
                                             type="button"
@@ -79,7 +83,8 @@ $conteneurs = getAllConteneurs();
                                             data-id="<?php echo htmlspecialchars($conteneur['id']); ?>"
                                             data-nom="<?php echo htmlspecialchars($conteneur['nom']); ?>"
                                             data-statut="<?php echo htmlspecialchars($conteneur['statut']); ?>"
-                                            data-position="<?php echo htmlspecialchars($conteneur['position']); ?>">
+                                            data-position="<?php echo htmlspecialchars($conteneur['position']); ?>"
+                                            data-proprietaire-id="<?php echo htmlspecialchars($conteneur['proprietaire_id']); ?>">
                                             Modifier
                                         </button>
                                         <button
@@ -132,6 +137,17 @@ $conteneurs = getAllConteneurs();
                         <label>Position</label>
                         <input type="text" name="position" class="form-control" placeholder="Port autonome de Dakar" required>
                     </div>
+                    <div class="form-group">
+                        <label>Proprietaire</label>
+                        <select name="proprietaire_id" class="form-control" required>
+                            <option value="">Choisir un proprietaire</option>
+                            <?php foreach ($proprietaires as $proprietaire): ?>
+                                <option value="<?php echo htmlspecialchars($proprietaire['id']); ?>">
+                                    <?php echo htmlspecialchars($proprietaire['prenom'] . ' ' . $proprietaire['nom']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
@@ -171,6 +187,17 @@ $conteneurs = getAllConteneurs();
                     <div class="form-group">
                         <label>Position</label>
                         <input type="text" name="position" id="edit_conteneur_position" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Proprietaire</label>
+                        <select name="proprietaire_id" id="edit_conteneur_proprietaire_id" class="form-control" required>
+                            <option value="">Choisir un proprietaire</option>
+                            <?php foreach ($proprietaires as $proprietaire): ?>
+                                <option value="<?php echo htmlspecialchars($proprietaire['id']); ?>">
+                                    <?php echo htmlspecialchars($proprietaire['prenom'] . ' ' . $proprietaire['nom']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -214,6 +241,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('edit_conteneur_nom').value = this.dataset.nom;
             document.getElementById('edit_conteneur_statut').value = this.dataset.statut;
             document.getElementById('edit_conteneur_position').value = this.dataset.position;
+            document.getElementById('edit_conteneur_proprietaire_id').value = this.dataset.proprietaireId;
         });
     });
 
