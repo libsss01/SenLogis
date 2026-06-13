@@ -4,7 +4,7 @@ session_start();
 require_once __DIR__ . '/../model/noteDB.php';
 
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
-    header('Location: /SenLogis/login.php');
+    header('Location: ../public/views/pages/notes/liste.php');
     exit;
 }
 

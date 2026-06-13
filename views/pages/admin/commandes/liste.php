@@ -5,6 +5,10 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
     header('Location: /SenLogis/login.php');
     exit;
 }
+
+
+require_once $_SERVER['DOCUMENT_ROOT'] . '/SenLogis/model/commandeDB.php';
+$commandes = getAllCommandes();
 ?>
 <?php require_once __DIR__ . '/../head.php'; ?>
 <?php require_once __DIR__ . '/../preloader.php'; ?>
@@ -18,7 +22,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
             <div class="col-sm-6 p-md-0">
                 <div class="welcome-text">
                     <h4>Gestion des commandes</h4>
-                    <p class="text-muted">Commandes clients, statuts et methode de commande.</p>
+                    <p class="text-muted">Commandes clients, statuts et méthode de commande.</p>
                 </div>
             </div>
         </div>
@@ -43,18 +47,35 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Date</th>
+                                <th>Numéro</th>
+                                <th>Description</th>
                                 <th>Statut</th>
-                                <th>Methode</th>
                                 <th>Client</th>
-                                <th>Livraison</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td colspan="7" class="text-center text-muted">Les commandes seront affichees ici apres branchement du model.</td>
-                            </tr>
+                            <?php if (empty($commandes)): ?>
+                                <tr>
+                                    <td colspan="6" class="text-center text-muted">Aucune commande trouvée.</td>
+                                </tr>
+                            <?php else: ?>
+                                <?php foreach ($commandes as $cmd): ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($cmd['id']); ?></td>
+                                    <td><strong>CMD-<?php echo htmlspecialchars($cmd['id']); ?></strong></td> 
+                                    <td><?php echo htmlspecialchars($cmd['date'] ?? 'Non définie'); ?></td> 
+                                    <td>
+                                        <span class="badge badge-primary"><?php echo htmlspecialchars($cmd['statut']); ?></span>
+                                    </td>
+                                    <td><?php echo htmlspecialchars($cmd['user_prenom'] . ' ' . $cmd['user_nom']); ?></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editCommandeModal" onclick="populateEditModal(<?php echo htmlspecialchars(json_encode($cmd)); ?>)">Modifier</button>
+                                        <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteCommandeModal" onclick="document.getElementById('delete_commande_id').value = <?php echo $cmd['id']; ?>">Supprimer</button>
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
@@ -73,36 +94,28 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>Date</label>
-                        <input type="date" name="date" class="form-control" required>
+                        <label>Numéro de Commande</label>
+                        <input type="text" name="numero" class="form-control" placeholder="Ex: CMD-2026-001" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea name="description" class="form-control" rows="3"></textarea>
                     </div>
                     <div class="form-group">
                         <label>Statut</label>
                         <select name="statut" class="form-control" required>
                             <option value="en_attente">En attente</option>
-                            <option value="confirmee">Confirmee</option>
-                            <option value="payee">Payee</option>
-                            <option value="annulee">Annulee</option>
+                            <option value="confirmee">Confirmée</option>
+                            <option value="payee">Payée</option>
+                            <option value="annulee">Annulée</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Methode</label>
-                        <select name="methode" class="form-control" required>
-                            <option value="agence">Agence</option>
-                            <option value="en_ligne">En ligne</option>
-                            <option value="telephone">Telephone</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>ID utilisateur</label>
+                        <label>ID Client (Utilisateur)</label>
                         <input type="number" name="user_id" class="form-control" required>
                     </div>
-                    <div class="form-group">
-                        <label>ID livraison</label>
-                        <input type="number" name="livraison_id" class="form-control" required>
-                    </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-header">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                     <button type="submit" name="btnAddCommande" class="btn btn-primary">Enregistrer</button>
                 </div>
@@ -122,38 +135,30 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
                 <div class="modal-body">
                     <input type="hidden" name="id" id="edit_commande_id">
                     <div class="form-group">
-                        <label>Date</label>
-                        <input type="date" name="date" id="edit_commande_date" class="form-control" required>
+                        <label>Numéro de Commande</label>
+                        <input type="text" name="numero" id="edit_commande_numero" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea name="description" id="edit_commande_description" class="form-control" rows="3"></textarea>
                     </div>
                     <div class="form-group">
                         <label>Statut</label>
                         <select name="statut" id="edit_commande_statut" class="form-control" required>
                             <option value="en_attente">En attente</option>
-                            <option value="confirmee">Confirmee</option>
-                            <option value="payee">Payee</option>
-                            <option value="annulee">Annulee</option>
+                            <option value="confirmee">Confirmée</option>
+                            <option value="payee">Payée</option>
+                            <option value="annulee">Annullée</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Methode</label>
-                        <select name="methode" id="edit_commande_methode" class="form-control" required>
-                            <option value="agence">Agence</option>
-                            <option value="en_ligne">En ligne</option>
-                            <option value="telephone">Telephone</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>ID utilisateur</label>
+                        <label>ID Client</label>
                         <input type="number" name="user_id" id="edit_commande_user_id" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>ID livraison</label>
-                        <input type="number" name="livraison_id" id="edit_commande_livraison_id" class="form-control" required>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                    <button type="submit" name="btnUpdateCommande" class="btn btn-primary">Mettre a jour</button>
+                    <button type="submit" name="btnUpdateCommande" class="btn btn-primary">Mettre à jour</button>
                 </div>
             </form>
         </div>
@@ -180,6 +185,26 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
         </div>
     </div>
 </div>
+<script>
+
+function populateEditModal(commande) {
+    document.getElementById('edit_commande_id').value = commande.id;
+    document.getElementById('edit_commande_numero').value = commande.numero || '';
+    document.getElementById('edit_commande_description').value = commande.description || '';
+    document.getElementById('edit_commande_statut').value = commande.statut;
+    document.getElementById('edit_commande_user_id').value = commande.user_id;
+}
+</script>
 
 <?php require_once __DIR__ . '/../footer.php'; ?>
 <?php require_once __DIR__ . '/../scripts.php'; ?>
+
+<script>
+function populateEditModal(commande) {
+    document.getElementById('edit_commande_id').value = commande.id;
+    document.getElementById('edit_commande_numero').value = commande.numero;
+    document.getElementById('edit_commande_description').value = commande.description;
+    document.getElementById('edit_commande_statut').value = commande.statut;
+    document.getElementById('edit_commande_user_id').value = commande.user_id;
+}
+</script>

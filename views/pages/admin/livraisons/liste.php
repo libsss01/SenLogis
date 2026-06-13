@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
+if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 1) {
     header('Location: /SenLogis/login.php');
     exit;
 }

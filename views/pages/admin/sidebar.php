@@ -39,7 +39,7 @@
                 </a>
             </li>
             <li>
-                <a href="views/pages/admin/users/liste.php" aria-expanded="false">
+                <a href="/SenLogis/listeNotes" aria-expanded="false">
                     <i class="fa fa-star"></i>
                     <span class="nav-text">Notes</span>
                 </a>
