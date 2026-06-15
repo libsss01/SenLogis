@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 1) {
 }
 
 function redirectClient(){
-    header('Location: /SenLogis/user.php');
+    header('Location: /SenLogis/clientConteneurs');
     exit;
 }
 

@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 1) {
 }
 
 function redirectClientNotes(){
-    header('Location: /SenLogis/user.php#mes-demandes');
+    header('Location: /SenLogis/clientDemandes');
     exit;
 }
 
@@ -44,8 +44,8 @@ if (isset($_POST['btnAddClientNote'])) {
         redirectClientNotes();
     }
 
-    if ($livraison['statut'] !== 'livree') {
-        $_SESSION['error'] = 'Vous pouvez noter uniquement une livraison livree.';
+    if ($livraison['statut'] !== 'confirmee') {
+        $_SESSION['error'] = 'Vous pouvez noter uniquement apres confirmation de reception.';
         redirectClientNotes();
     }
 

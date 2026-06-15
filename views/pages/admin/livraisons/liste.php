@@ -1,10 +1,16 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../../../controller/sessionSecurity.php';
+sendNoCacheHeaders();
 
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
     header('Location: /SenLogis/login.php');
     exit;
 }
+
+$_SESSION['error'] = 'Acces non autorise : les administrateurs ne peuvent pas consulter les livraisons.';
+header('Location: /SenLogis/admin');
+exit;
 
 require_once __DIR__ . '/../../../../model/livraisonDB.php';
 require_once __DIR__ . '/../../../../model/userDB.php';
@@ -26,7 +32,7 @@ $conteneurs = getAllConteneurs();
             <div class="col-sm-6 p-md-0">
                 <div class="welcome-text">
                     <h4>Gestion des livraisons</h4>
-                    <p class="text-muted">Suivi des adresses, dates, statuts et conteneurs associes.</p>
+                    <p class="text-muted">Consultation des adresses, dates, statuts et conteneurs associes.</p>
                 </div>
             </div>
         </div>
@@ -34,7 +40,7 @@ $conteneurs = getAllConteneurs();
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h4 class="card-title">Livraisons</h4>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addLivraisonModal">
+                <button type="button" class="btn btn-secondary d-none" disabled aria-disabled="true" title="Action non autorisee pour un administrateur">
                     Ajouter une livraison
                 </button>
             </div>
@@ -62,7 +68,7 @@ $conteneurs = getAllConteneurs();
                         <tbody>
                             <?php if (empty($livraisons)): ?>
                 
-                                <tr>
+                                <tr class="admin-readonly-row">
                                     <td colspan="7" class="text-center text-muted">Il existe pour le moment aucune livraison.</td>
                                 </tr>
                             <?php else:?>
@@ -77,7 +83,10 @@ $conteneurs = getAllConteneurs();
                                         <td>
                                             <button
                                                 type="button"
-                                                class="btn btn-sm btn-warning btn-edit-livraison"
+                                                class="btn btn-sm btn-outline-secondary btn-edit-livraison d-none"
+                                                disabled
+                                                aria-disabled="true"
+                                                title="Action non autorisee pour un administrateur"
                                                 data-toggle="modal"
                                                 data-target="#editLivraisonModal"
                                                 data-id="<?php echo htmlspecialchars($livraison['id']); ?>"
@@ -92,7 +101,10 @@ $conteneurs = getAllConteneurs();
                                             </button>
                                             <button
                                             type="button"
-                                            class="btn btn-sm btn-danger btn-delete-livraison"
+                                            class="btn btn-sm btn-outline-secondary btn-delete-livraison d-none"
+                                            disabled
+                                            aria-disabled="true"
+                                            title="Action non autorisee pour un administrateur"
                                             data-toggle="modal"
                                             data-target="#deleteLivraisonModal"
                                             data-id="<?php echo htmlspecialchars($livraison['id']); ?>"

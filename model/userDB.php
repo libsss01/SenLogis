@@ -4,7 +4,7 @@ require_once __DIR__ . "/Model.php";
 /**
  * Creer un compte utilisateur.
  */
-function createUser($nom, $prenom, $email, $motDePasse, $telephone = null, $roleId = 1){
+function createUser($nom, $prenom, $email, $motDePasse, $telephone = null, $roleId = null){
     $sql = "INSERT INTO users (nom, prenom, email, motDePasse, telephone, role_id, etat)
             VALUES (:nom, :prenom, :email, :motDePasse, :telephone, :role_id, 'Actif')";
 
@@ -81,7 +81,7 @@ function loginUser($email, $password){
 function getAllUsers($etat = 'Actif'){
     $sql = "SELECT users.*, roles.nom AS role_nom
             FROM users
-            INNER JOIN roles ON roles.id = users.role_id
+            LEFT JOIN roles ON roles.id = users.role_id
             WHERE users.etat = :etat
             ORDER BY users.id DESC";
 
@@ -100,7 +100,7 @@ function getAllUsersForAdmin(){
 
     $sql = "SELECT users.*, roles.nom AS role_nom
             FROM users
-            INNER JOIN roles ON roles.id = users.role_id
+            LEFT JOIN roles ON roles.id = users.role_id
             ORDER BY users.id DESC";
 
     $requeteSecurisee = getConnexion()->prepare($sql);
@@ -179,6 +179,19 @@ function updateUser($id, $nom, $prenom, $email, $telephone, $roleId){
         'prenom' => $prenom,
         'email' => $email,
         'telephone' => $telephone,
+        'role_id' => $roleId,
+        'id' => $id
+    ]);
+}
+
+/**
+ * Definir le role metier choisi apres la premiere connexion.
+ */
+function updateUserRole($id, $roleId){
+    $sql = "UPDATE users SET role_id = :role_id WHERE id = :id";
+
+    $requeteSecurisee = getConnexion()->prepare($sql);
+    return $requeteSecurisee->execute([
         'role_id' => $roleId,
         'id' => $id
     ]);

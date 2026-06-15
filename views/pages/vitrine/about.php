@@ -6,34 +6,34 @@
 
       <div class="col-lg-6 position-relative align-self-start order-lg-last order-first" data-aos="fade-up" data-aos-delay="200">
         <img src="public/template/templateVitrine/Logis/assets/img/features-4.jpg" class="img-fluid" alt="Conteneurs au port">
-        <a href="public/template/templateVitrine/Logis/services.html" class="glightbox pulsating-play-btn"></a>
+        <a href="index.php#services" class="pulsating-play-btn" aria-label="Voir les services SenLogis"></a>
       </div>
 
-      <div class="col-lg-6 content order-last  order-lg-first" data-aos="fade-up" data-aos-delay="100">
-        <h3>À propos de SenLogis</h3>
+      <div class="col-lg-6 content order-last order-lg-first" data-aos="fade-up" data-aos-delay="100">
+        <h3>A propos de SenLogis</h3>
         <p>
-          SenLogis met à votre service une organisation claire, un suivi précis et une équipe orientée résultat pour sécuriser chaque étape de votre chaîne logistique.
+          SenLogis est une application simple de gestion de demandes autour des conteneurs : clients, proprietaires et administrateur utilisent chacun un espace adapte.
         </p>
         <ul>
           <li>
             <i class="bi bi-diagram-3"></i>
             <div>
-              <h5>Des tournées planifiées avec précision</h5>
-              <p>Nous organisons vos flux pour réduire les délais et limiter les ruptures.</p>
+              <h5>Un parcours clair pour le client</h5>
+              <p>Le client consulte les conteneurs disponibles, envoie une demande et suit l'etat de sa livraison.</p>
             </div>
           </li>
           <li>
             <i class="bi bi-fullscreen-exit"></i>
             <div>
-              <h5>Un suivi transparent de bout en bout</h5>
-              <p>Vos expéditions sont contrôlées avec des informations claires à chaque étape.</p>
+              <h5>Un espace dedie au proprietaire</h5>
+              <p>Le proprietaire gere ses conteneurs et traite les demandes recues.</p>
             </div>
           </li>
           <li>
             <i class="bi bi-broadcast"></i>
             <div>
-              <h5>Une équipe disponible et réactive</h5>
-              <p>Nos conseillers vous accompagnent pour les devis, les urgences et le suivi.</p>
+              <h5>Une validation apres reception</h5>
+              <p>Le client confirme la reception avant de noter la livraison, pour garder un processus coherent.</p>
             </div>
           </li>
         </ul>

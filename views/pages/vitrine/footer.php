@@ -6,42 +6,36 @@
         <a href="index.php" class="logo d-flex align-items-center">
           <span class="sitename">SenLogis</span>
         </a>
-        <p>SenLogis accompagne vos opérations de transport, de stockage et de suivi avec une approche simple, fiable et orientée résultat.</p>
-        <div class="social-links d-flex mt-4">
-          <a href=""><i class="bi bi-twitter-x"></i></a>
-          <a href=""><i class="bi bi-facebook"></i></a>
-          <a href=""><i class="bi bi-instagram"></i></a>
-          <a href=""><i class="bi bi-linkedin"></i></a>
-        </div>
+        <p>SenLogis facilite la demande de conteneurs, le suivi des livraisons et la confirmation de reception.</p>
       </div>
 
       <div class="col-lg-2 col-6 footer-links">
-        <h4>Useful Links</h4>
+        <h4>Liens utiles</h4>
         <ul>
           <li><a href="index.php">Accueil</a></li>
-          <li><a href="public/template/templateVitrine/Logis/about.html">À propos</a></li>
-          <li><a href="public/template/templateVitrine/Logis/services.html">Services</a></li>
-          <li><a href="public/template/templateVitrine/Logis/starter-page.html">Conditions</a></li>
-          <li><a href="public/template/templateVitrine/Logis/contact.html">Contact</a></li>
+          <li><a href="index.php#about">A propos</a></li>
+          <li><a href="index.php#services">Services</a></li>
+          <li><a href="index.php#faq">Questions frequentes</a></li>
+          <li><a href="index.php#footer">Contact</a></li>
         </ul>
       </div>
 
       <div class="col-lg-2 col-6 footer-links">
-        <h4>Our Services</h4>
+        <h4>Services metier</h4>
         <ul>
-          <li><a href="public/template/templateVitrine/Logis/service-details.html">Suivi</a></li>
-          <li><a href="public/template/templateVitrine/Logis/service-details.html">Transport</a></li>
-          <li><a href="public/template/templateVitrine/Logis/service-details.html">Stockage</a></li>
-          <li><a href="public/template/templateVitrine/Logis/contact.html">Support</a></li>
+          <li><a href="index.php#featured-services">Conteneurs disponibles</a></li>
+          <li><a href="index.php#services">Demandes de livraison</a></li>
+          <li><a href="index.php#services">Validation proprietaire</a></li>
+          <li><a href="index.php#faq">Confirmation et notation</a></li>
         </ul>
       </div>
 
       <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
-        <h4>Contact Us</h4>
+        <h4>Contact</h4>
         <p>Port Autonome de Dakar</p>
         <p>Dakar</p>
-        <p>Sénégal</p>
-        <p class="mt-4"><strong>Phone:</strong> <span>+221 77 123 43 23</span></p>
+        <p>Senegal</p>
+        <p class="mt-4"><strong>Telephone:</strong> <span>+221 77 123 43 23</span></p>
         <p><strong>Email:</strong> <span>contact@senlogis.sn</span></p>
       </div>
 
@@ -49,9 +43,9 @@
   </div>
 
   <div class="container copyright text-center mt-4">
-        <p>&copy; <span>Copyright</span> <strong class="px-1 sitename">SenLogis</strong> <span>Tous droits réservés</span></p>
+    <p>&copy; <span>Copyright</span> <strong class="px-1 sitename">SenLogis</strong> <span>Tous droits reserves</span></p>
     <div class="credits">
-      Adapté pour SenLogis
+      Adapte pour SenLogis
     </div>
   </div>
 

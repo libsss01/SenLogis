@@ -1,5 +1,7 @@
 <?php
 session_start();
+require_once __DIR__ . '/controller/sessionSecurity.php';
+sendNoCacheHeaders();
 
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 2) {
     header('Location: login.php');
@@ -19,6 +21,8 @@ function getConteneurStatutClass($statut)
             return 'status-livraison';
         case 'maintenance':
             return 'status-maintenance';
+        case 'indisponible':
+            return 'status-indisponible';
         case 'reserve':
             return 'status-reserve';
         default:

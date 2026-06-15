@@ -25,7 +25,7 @@ $old = $_SESSION['old'] ?? [];
                 </a>
 
                 <h1 class="auth-title">Creer un compte</h1>
-                <p class="auth-subtitle">Creez un acces client pour suivre vos commandes et livraisons.</p>
+                <p class="auth-subtitle">Creez votre compte. Le type de compte sera choisi a la premiere connexion.</p>
 
                 <?php if (isset($_SESSION['error'])): ?>
                     <div class="alert alert-danger" role="alert">

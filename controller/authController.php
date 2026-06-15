@@ -37,15 +37,20 @@ if (isset($_POST["btnLogin"])) {
     $_SESSION["user_id"] = $user["id"];
     $_SESSION["user_name"] = trim($user["prenom"] . ' ' . $user["nom"]);
     $_SESSION["user_email"] = $user["email"];
-    $_SESSION["user_role_id"] = $user["role_id"];
+    $_SESSION["user_role_id"] = $user["role_id"] !== null ? (int) $user["role_id"] : null;
     $_SESSION["user_telephone"] = $user["telephone"];
     $_SESSION["user_etat"] = $user["etat"];
     unset($_SESSION['error']);
 
+    if ($_SESSION["user_role_id"] === null) {
+        header('Location: ../choisirRole');
+        exit;
+    }
+
     $dashboard = [
         3 => '../admin.php',
-        2 => '../dashboard_owner.php',
-        1 => '../user.php'
+        2 => '../dashboardProprietaire',
+        1 => '../clientDashboard'
     ];
 
     $redirect = $dashboard[$_SESSION['user_role_id']] ?? '../user.php';
@@ -98,7 +103,7 @@ if (isset($_POST["btnRegister"])) {
         exit;
     }
 
-    $user = createUser($nom, $prenom, $email, $password, $telephone, 1);
+    $user = createUser($nom, $prenom, $email, $password, $telephone);
 
     if (!$user) {
         keepRegisterOldValues($nom, $prenom, $email, $telephone);

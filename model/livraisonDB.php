@@ -67,7 +67,6 @@ function getDemandesLivraisonByProprietaire($proprietaire_id){
             JOIN users ON livraisons.user_id = users.id
             JOIN conteneurs ON livraisons.conteneur_id = conteneurs.id
             WHERE conteneurs.proprietaire_id = :proprietaire_id
-            AND livraisons.statut = 'en_attente'
             ORDER BY livraisons.id DESC";
 
     $requeteSecurisee = getConnexion()->prepare($sql);

@@ -21,6 +21,11 @@ function isValidNoteValue($note){
     return ctype_digit((string) $note) && $note >= 1 && $note <= 5;
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $_SESSION['error'] = 'Action non autorisee : les administrateurs peuvent seulement consulter les notes.';
+    redirectNotes();
+}
+
 if (isset($_POST['btnAddNote'])) {
     $note = trim($_POST['note'] ?? '');
     $numLivraison = trim($_POST['numLivraison'] ?? '');

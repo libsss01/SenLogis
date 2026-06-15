@@ -19,6 +19,11 @@ function isValid($id)
     return !empty($id) && ctype_digit((string)$id);
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $_SESSION['error'] = 'Action non autorisee : les administrateurs peuvent seulement consulter les livraisons.';
+    redirectLivraisons();
+}
+
 if (isset($_POST['btnAddLivraison'])) {
     $adresse = trim($_POST['adresse'] ?? '');
     $dateLivraison = trim($_POST['dateLivraison'] ?? '');

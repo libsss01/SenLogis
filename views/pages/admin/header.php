@@ -24,10 +24,6 @@
                                     <i class="mdi mdi-account"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="/SenLogis/user.php" class="dropdown-item">
-                                        <i class="icon-user"></i>
-                                        <span class="ml-2">Profil</span>
-                                    </a>
                                     <a href="/SenLogis/controller/authController.php?action=logout" class="dropdown-item">
                                         <i class="icon-key"></i>
                                         <span class="ml-2">Deconnexion</span>

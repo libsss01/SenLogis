@@ -6,8 +6,9 @@
     <div class="row justify-content-center" data-aos="zoom-in" data-aos-delay="100">
       <div class="col-xl-10">
         <div class="text-center">
-          <h3>Besoin d’un devis rapide ?</h3>
-          <p>Parlez-nous de votre besoin et obtenez une proposition adaptée à vos volumes, vos délais et votre budget.</p>
+          <h3>Commencer avec SenLogis</h3>
+          <p>Creez un compte, choisissez votre espace client ou proprietaire, puis utilisez les fonctions disponibles selon votre role.</p>
+          <a class="btn btn-primary" href="register.php">Creer un compte</a>
         </div>
       </div>
     </div>

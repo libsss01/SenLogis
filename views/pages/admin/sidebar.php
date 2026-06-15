@@ -8,50 +8,50 @@ $roleId = $_SESSION['user_role_id'] ?? null;
         <ul class="metismenu" id="menu">
             <?php if ($roleId == 1): ?>
             <li>
-                <a href="/SenLogis/user.php" aria-expanded="false">
+                <a href="/SenLogis/clientDashboard" aria-expanded="false">
                     <i class="fa fa-dashboard"></i>
                     <span class="nav-text">Tableau de bord</span>
                 </a>
             </li>
             <li>
-                <a href="/SenLogis/user.php#conteneurs-disponibles" aria-expanded="false">
+                <a href="/SenLogis/clientConteneurs" aria-expanded="false">
                     <i class="fa fa-cube"></i>
                     <span class="nav-text">Conteneurs dispo</span>
                 </a>
             </li>
             <li>
-                <a href="/SenLogis/user.php#mes-demandes" aria-expanded="false">
+                <a href="/SenLogis/clientDemandes" aria-expanded="false">
                     <i class="fa fa-truck"></i>
                     <span class="nav-text">Mes demandes</span>
                 </a>
             </li>
             <li>
-                <a href="/SenLogis/user.php#mes-paiements" aria-expanded="false">
+                <a href="/SenLogis/clientPaiements" aria-expanded="false">
                     <i class="fa fa-credit-card"></i>
                     <span class="nav-text">Mes paiements</span>
                 </a>
             </li>
             <?php elseif ($roleId == 2): ?>
             <li>
-                <a href="/SenLogis/dashboard_owner.php" aria-expanded="false">
+                <a href="/SenLogis/dashboardProprietaire" aria-expanded="false">
                     <i class="fa fa-dashboard"></i>
                     <span class="nav-text">Tableau de bord</span>
                 </a>
             </li>
             <li>
-                <a href="/SenLogis/dashboard_owner.php#mes-conteneurs" aria-expanded="false">
+                <a href="/SenLogis/conteneursProprietaire" aria-expanded="false">
                     <i class="fa fa-cube"></i>
                     <span class="nav-text">Mes conteneurs</span>
                 </a>
             </li>
             <li>
-                <a href="/SenLogis/dashboard_owner.php#demandes-recues" aria-expanded="false">
+                <a href="/SenLogis/demandesProprietaire" aria-expanded="false">
                     <i class="fa fa-truck"></i>
                     <span class="nav-text">Demandes recues</span>
                 </a>
             </li>
             <li>
-                <a href="/SenLogis/dashboard_owner.php#paiements-recus" aria-expanded="false">
+                <a href="/SenLogis/paiementsProprietaire" aria-expanded="false">
                     <i class="fa fa-credit-card"></i>
                     <span class="nav-text">Paiements recus</span>
                 </a>
@@ -73,30 +73,6 @@ $roleId = $_SESSION['user_role_id'] ?? null;
                 <a href="/SenLogis/listeConteneurs" aria-expanded="false">
                     <i class="fa fa-cube"></i>
                     <span class="nav-text">Conteneurs</span>
-                </a>
-            </li>
-            <li>
-                <a href="/SenLogis/listeLivraisons" aria-expanded="false">
-                    <i class="fa fa-truck"></i>
-                    <span class="nav-text">Livraisons</span>
-                </a>
-            </li>
-            <li>
-                <a href="/SenLogis/listeCommandes" aria-expanded="false">
-                    <i class="fa fa-shopping-cart"></i>
-                    <span class="nav-text">Commandes</span>
-                </a>
-            </li>
-            <li>
-                <a href="/SenLogis/listePaiements" aria-expanded="false">
-                    <i class="fa fa-credit-card"></i>
-                    <span class="nav-text">Paiements</span>
-                </a>
-            </li>
-            <li>
-                <a href="/SenLogis/listeNotes" aria-expanded="false">
-                    <i class="fa fa-star"></i>
-                    <span class="nav-text">Notes</span>
                 </a>
             </li>
             <?php endif; ?>

@@ -16,7 +16,7 @@
     <link href="/SenLogis/public/template/templateAdmin/focus-2/icons/font-awesome-old/css/font-awesome.min.css" rel="stylesheet">
     <link href="/SenLogis/public/template/templateAdmin/focus-2/icons/material-design-iconic-font/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="/SenLogis/public/template/templateAdmin/focus-2/css/style.css" rel="stylesheet">
-    <link href="/SenLogis/public/css/admin-custom.css?v=20260613-sidebar-2" rel="stylesheet">
+    <link href="/SenLogis/public/css/admin-custom.css?v=20260615-spacing-1" rel="stylesheet">
 
 </head>
 

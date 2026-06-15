@@ -1,10 +1,16 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../../../controller/sessionSecurity.php';
+sendNoCacheHeaders();
 
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
     header('Location: /SenLogis/login.php');
     exit;
 }
+
+$_SESSION['error'] = 'Acces non autorise : les administrateurs ne peuvent pas consulter les paiements.';
+header('Location: /SenLogis/admin');
+exit;
 
 require_once __DIR__ . '/../../../../model/paiementDB.php';
 require_once __DIR__ . '/../../../../model/commandeDB.php';
@@ -24,7 +30,7 @@ $commandes = getAllCommandes();
             <div class="col-sm-6 p-md-0">
                 <div class="welcome-text">
                     <h4>Gestion des paiements</h4>
-                    <p class="text-muted">Paiements simules: montant, methode, statut et reference.</p>
+                    <p class="text-muted">Consultation des paiements simules: montant, methode, statut et reference.</p>
                 </div>
             </div>
         </div>
@@ -32,7 +38,7 @@ $commandes = getAllCommandes();
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h4 class="card-title">Paiements</h4>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addPaiementModal">
+                <button type="button" class="btn btn-secondary d-none" disabled aria-disabled="true" title="Action non autorisee pour un administrateur">
                     Ajouter un paiement
                 </button>
             </div>
@@ -53,32 +59,29 @@ $commandes = getAllCommandes();
                                 <th>Methode</th>
                                 <th>Statut</th>
                                 <th>Reference</th>
-                                <th>Commande</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if (empty($paiements)): ?>
                                 <tr>
-                                    <td colspan="7" class="text-center text-muted">Il n'existe pour le moment aucun paiement.</td>
+                                    <td colspan="6" class="text-center text-muted">Il n'existe pour le moment aucun paiement.</td>
                                 </tr>
                             <?php else: ?>
                                 <?php foreach ($paiements as $paiement): ?>
-                                    <?php
-                                        $clientNom = trim($paiement['user_prenom'] . ' ' . $paiement['user_nom']);
-                                        $commandeLabel = '#' . $paiement['commande_id'] . ' - ' . $clientNom . ' / ' . $paiement['conteneur_nom'];
-                                    ?>
-                                    <tr>
+                                    <tr class="admin-readonly-row">
                                         <td><?php echo htmlspecialchars($paiement['id']); ?></td>
                                         <td><?php echo htmlspecialchars(number_format($paiement['montant'], 0, ',', ' ')); ?> FCFA</td>
                                         <td><?php echo htmlspecialchars($paiement['methode']); ?></td>
                                         <td><?php echo htmlspecialchars($paiement['statut']); ?></td>
                                         <td><?php echo htmlspecialchars($paiement['reference']); ?></td>
-                                        <td><?php echo htmlspecialchars($commandeLabel); ?></td>
                                         <td>
                                             <button
                                                 type="button"
-                                                class="btn btn-sm btn-warning btn-edit-paiement"
+                                                class="btn btn-sm btn-outline-secondary btn-edit-paiement d-none"
+                                                disabled
+                                                aria-disabled="true"
+                                                title="Action non autorisee pour un administrateur"
                                                 data-toggle="modal"
                                                 data-target="#editPaiementModal"
                                                 data-id="<?php echo htmlspecialchars($paiement['id']); ?>"
@@ -91,7 +94,10 @@ $commandes = getAllCommandes();
                                             </button>
                                             <button
                                                 type="button"
-                                                class="btn btn-sm btn-danger btn-delete-paiement"
+                                                class="btn btn-sm btn-outline-secondary btn-delete-paiement d-none"
+                                                disabled
+                                                aria-disabled="true"
+                                                title="Action non autorisee pour un administrateur"
                                                 data-toggle="modal"
                                                 data-target="#deletePaiementModal"
                                                 data-id="<?php echo htmlspecialchars($paiement['id']); ?>"

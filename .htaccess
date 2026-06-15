@@ -2,6 +2,17 @@ RewriteEngine On
 
 RewriteRule ^admin$ admin.php
 RewriteRule ^home$ index.php
+RewriteRule ^choisirRole$ role_selection.php
+
+RewriteRule ^clientDashboard$ client_dashboard.php
+RewriteRule ^clientConteneurs$ client_conteneurs.php
+RewriteRule ^clientDemandes$ client_demandes.php
+RewriteRule ^clientPaiements$ client_paiements.php
+
+RewriteRule ^dashboardProprietaire$ owner_dashboard.php
+RewriteRule ^conteneursProprietaire$ owner_conteneurs.php
+RewriteRule ^demandesProprietaire$ owner_demandes.php
+RewriteRule ^paiementsProprietaire$ owner_paiements.php
 
 RewriteRule ^listeUsers$ views/pages/admin/users/liste.php
 RewriteRule ^listeConteneurs$ views/pages/admin/conteneurs/liste.php

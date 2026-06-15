@@ -1,10 +1,16 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../../../controller/sessionSecurity.php';
+sendNoCacheHeaders();
 
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
     header('Location: /SenLogis/login.php');
     exit;
 }
+
+$_SESSION['error'] = 'Acces non autorise : les administrateurs ne peuvent pas consulter les commandes.';
+header('Location: /SenLogis/admin');
+exit;
 
 require_once __DIR__ . '/../../../../model/commandeDB.php';
 require_once __DIR__ . '/../../../../model/userDB.php';
@@ -26,7 +32,7 @@ $livraisons = getAllLivraisons();
             <div class="col-sm-6 p-md-0">
                 <div class="welcome-text">
                     <h4>Gestion des commandes</h4>
-                    <p class="text-muted">Commandes clients, statuts et methode de commande.</p>
+                    <p class="text-muted">Consultation des commandes clients, statuts et methodes de commande.</p>
                 </div>
             </div>
         </div>
@@ -34,7 +40,7 @@ $livraisons = getAllLivraisons();
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h4 class="card-title">Commandes</h4>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCommandeModal">
+                <button type="button" class="btn btn-secondary" disabled aria-disabled="true" title="Action non autorisee pour un administrateur">
                     Ajouter une commande
                 </button>
             </div>
@@ -82,7 +88,10 @@ $livraisons = getAllLivraisons();
                                         <td>
                                             <button
                                                 type="button"
-                                                class="btn btn-sm btn-warning btn-edit-commande"
+                                                class="btn btn-sm btn-outline-secondary btn-edit-commande"
+                                                disabled
+                                                aria-disabled="true"
+                                                title="Action non autorisee pour un administrateur"
                                                 data-toggle="modal"
                                                 data-target="#editCommandeModal"
                                                 data-id="<?php echo htmlspecialchars($commande['id']); ?>"
@@ -95,7 +104,10 @@ $livraisons = getAllLivraisons();
                                             </button>
                                             <button
                                                 type="button"
-                                                class="btn btn-sm btn-danger btn-delete-commande"
+                                                class="btn btn-sm btn-outline-secondary btn-delete-commande"
+                                                disabled
+                                                aria-disabled="true"
+                                                title="Action non autorisee pour un administrateur"
                                                 data-toggle="modal"
                                                 data-target="#deleteCommandeModal"
                                                 data-id="<?php echo htmlspecialchars($commande['id']); ?>"

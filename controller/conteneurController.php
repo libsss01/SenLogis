@@ -17,6 +17,11 @@ function isValidId($id){
     return !empty($id) && ctype_digit((string) $id);
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $_SESSION['error'] = 'Action non autorisee : les administrateurs peuvent seulement consulter les conteneurs.';
+    redirectConteneurs();
+}
+
 if (isset($_POST['btnAddConteneur'])) {
 
     $nom = trim($_POST['nom'] ?? '');
@@ -70,24 +75,6 @@ if (isset($_POST['btnUpdateConteneur'])) {
         $_SESSION['success'] = 'Conteneur modifié avec succès';
     } else {
         $_SESSION['error'] = 'Erreur lors de la modification du conteneur';
-    }
-
-    redirectConteneurs();
-}
-
-if (isset($_POST['btnDeleteConteneur'])) {
-
-    $id = $_POST['id'] ?? '';
-
-    if (!isValidId($id)) {
-        $_SESSION['error'] = 'Identifiant du conteneur invalide';
-        redirectConteneurs();
-    }
-
-    if (deleteConteneur($id)) {
-        $_SESSION['success'] = 'Conteneur supprimé avec succès';
-    } else {
-        $_SESSION['error'] = 'Erreur lors de la suppression du conteneur';
     }
 
     redirectConteneurs();

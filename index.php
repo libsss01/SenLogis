@@ -1,5 +1,9 @@
+<?php
+require_once __DIR__ . '/model/siteStatsFile.php';
+trackVitrineVisit('index');
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
   <meta charset="utf-8">

@@ -1,10 +1,16 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../../../controller/sessionSecurity.php';
+sendNoCacheHeaders();
 
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 3) {
     header('Location: /SenLogis/login.php');
     exit;
 }
+
+$_SESSION['error'] = 'Acces non autorise : les administrateurs ne peuvent pas consulter les notes.';
+header('Location: /SenLogis/admin');
+exit;
 
 require_once __DIR__ . '/../../../../model/noteDB.php';
 require_once __DIR__ . '/../../../../model/userDB.php';
@@ -26,7 +32,7 @@ $livraisons = getAllLivraisons();
             <div class="col-sm-6 p-md-0">
                 <div class="welcome-text">
                     <h4>Gestion des notes</h4>
-                    <p class="text-muted">Notes donnees par les utilisateurs apres une livraison.</p>
+                    <p class="text-muted">Consultation des notes donnees par les utilisateurs apres une livraison.</p>
                 </div>
             </div>
         </div>
@@ -34,7 +40,7 @@ $livraisons = getAllLivraisons();
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h4 class="card-title">Notes</h4>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNoteModal">
+                <button type="button" class="btn btn-secondary" disabled aria-disabled="true" title="Action non autorisee pour un administrateur">
                     Ajouter une note
                 </button>
             </div>
@@ -76,7 +82,10 @@ $livraisons = getAllLivraisons();
                                         <td>
                                             <button
                                                 type="button"
-                                                class="btn btn-sm btn-warning btn-edit-note"
+                                                class="btn btn-sm btn-outline-secondary btn-edit-note"
+                                                disabled
+                                                aria-disabled="true"
+                                                title="Action non autorisee pour un administrateur"
                                                 data-toggle="modal"
                                                 data-target="#editNoteModal"
                                                 data-id="<?php echo htmlspecialchars($note['id']); ?>"
@@ -87,7 +96,10 @@ $livraisons = getAllLivraisons();
                                             </button>
                                             <button
                                                 type="button"
-                                                class="btn btn-sm btn-danger btn-delete-note"
+                                                class="btn btn-sm btn-outline-secondary btn-delete-note"
+                                                disabled
+                                                aria-disabled="true"
+                                                title="Action non autorisee pour un administrateur"
                                                 data-toggle="modal"
                                                 data-target="#deleteNoteModal"
                                                 data-id="<?php echo htmlspecialchars($note['id']); ?>"

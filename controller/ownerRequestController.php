@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role_id'] != 2) {
 }
 
 function redirectOwner(){
-    header('Location: /SenLogis/dashboard_owner.php#demandes-recues');
+    header('Location: /SenLogis/demandesProprietaire');
     exit;
 }
 
@@ -29,12 +29,17 @@ if (!isValidOwnerRequestId($livraison_id)) {
 
 $livraison = getLivraisonForProprietaire($livraison_id, $_SESSION['user_id']);
 
-if (!$livraison || $livraison['statut'] !== 'en_attente') {
-    $_SESSION['error'] = 'Cette demande est introuvable ou deja traitee.';
+if (!$livraison) {
+    $_SESSION['error'] = 'Cette demande est introuvable.';
     redirectOwner();
 }
 
 if (isset($_POST['btnAcceptOwnerRequest'])) {
+    if ($livraison['statut'] !== 'en_attente') {
+        $_SESSION['error'] = 'Seule une demande en attente peut etre acceptee.';
+        redirectOwner();
+    }
+
     updateStatutLivraison($livraison_id, 'validee');
     updateStatutCommandeByLivraison($livraison_id, 'confirmee');
     updateConteneurStatut($livraison['conteneur_id'], 'en_livraison');
@@ -44,11 +49,28 @@ if (isset($_POST['btnAcceptOwnerRequest'])) {
 }
 
 if (isset($_POST['btnRejectOwnerRequest'])) {
+    if ($livraison['statut'] !== 'en_attente') {
+        $_SESSION['error'] = 'Seule une demande en attente peut etre refusee.';
+        redirectOwner();
+    }
+
     updateStatutLivraison($livraison_id, 'annulee');
     updateStatutCommandeByLivraison($livraison_id, 'annulee');
     updateConteneurStatut($livraison['conteneur_id'], 'disponible');
 
     $_SESSION['success'] = 'Demande refusee. Le conteneur est de nouveau disponible.';
+    redirectOwner();
+}
+
+if (isset($_POST['btnMarkDeliveredOwnerRequest'])) {
+    if (!in_array($livraison['statut'], ['validee', 'en_cours'], true)) {
+        $_SESSION['error'] = 'Cette livraison ne peut pas encore etre marquee comme arrivee.';
+        redirectOwner();
+    }
+
+    updateStatutLivraison($livraison_id, 'livree');
+
+    $_SESSION['success'] = 'Livraison marquee comme arrivee. Le client doit maintenant confirmer la reception.';
     redirectOwner();
 }
 

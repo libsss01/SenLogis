@@ -29,7 +29,7 @@ CREATE TABLE users (
   motDePasse VARCHAR(255) NOT NULL,
   telephone VARCHAR(30) NULL,
   etat ENUM('Actif', 'Bloque') NOT NULL DEFAULT 'Actif',
-  role_id INT NOT NULL,
+  role_id INT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT fk_users_roles
     FOREIGN KEY (role_id) REFERENCES roles(id)
@@ -39,7 +39,7 @@ CREATE TABLE users (
 CREATE TABLE conteneurs (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nom VARCHAR(80) NOT NULL UNIQUE,
-  statut ENUM('disponible', 'reserve', 'en_livraison', 'maintenance') NOT NULL DEFAULT 'disponible',
+  statut ENUM('disponible', 'reserve', 'en_livraison', 'maintenance', 'indisponible') NOT NULL DEFAULT 'disponible',
   position VARCHAR(150) NOT NULL,
   proprietaire_id INT NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -53,7 +53,7 @@ CREATE TABLE livraisons (
   id INT AUTO_INCREMENT PRIMARY KEY,
   adresse VARCHAR(255) NOT NULL,
   dateLivraison DATE NOT NULL,
-  statut ENUM('en_attente', 'validee', 'en_cours', 'livree', 'annulee') NOT NULL DEFAULT 'en_attente',
+  statut ENUM('en_attente', 'validee', 'en_cours', 'livree', 'confirmee', 'annulee') NOT NULL DEFAULT 'en_attente',
   user_id INT NOT NULL,
   conteneur_id INT NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

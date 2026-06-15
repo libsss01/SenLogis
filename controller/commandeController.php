@@ -19,6 +19,11 @@ function isValidCommandeId($id)
     return !empty($id) && ctype_digit((string) $id);
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $_SESSION['error'] = 'Action non autorisee : les administrateurs peuvent seulement consulter les commandes.';
+    redirectCommandes();
+}
+
 if (isset($_POST['btnAddCommande'])) {
     $date = trim($_POST['date'] ?? '');
     $statut = trim($_POST['statut'] ?? '');

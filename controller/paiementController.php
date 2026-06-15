@@ -28,6 +28,11 @@ function syncCommandePaiementStatut($commande_id, $statutPaiement){
     }
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $_SESSION['error'] = 'Action non autorisee : les administrateurs peuvent seulement consulter les paiements.';
+    redirectPaiements();
+}
+
 if (isset($_POST['btnAddPaiement'])) {
     $montant = trim($_POST['montant'] ?? '');
     $methode = trim($_POST['methode'] ?? '');

@@ -77,6 +77,18 @@ function updateConteneurStatut($id, $statut){
     ]);
 }
 
+function updateConteneursStatutByProprietaire($proprietaire_id, $statut){
+    $sql = "UPDATE conteneurs
+            SET statut = :statut
+            WHERE proprietaire_id = :proprietaire_id";
+
+    $requeteSecurisee = getConnexion()->prepare($sql);
+    return $requeteSecurisee->execute([
+        'statut' => $statut,
+        'proprietaire_id' => $proprietaire_id
+    ]);
+}
+
 
 function addConteneur($nom, $statut, $position, $proprietaire_id){
     $sql = "INSERT INTO conteneurs(nom, statut, position, proprietaire_id)
@@ -119,20 +131,29 @@ function updateConteneur($id, $nom, $statut, $position, $proprietaire_id){
         }
 }
 
+function updateConteneurForProprietaire($id, $nom, $statut, $position, $proprietaire_id){
+    $sql = "UPDATE conteneurs
+            SET nom = :nom,
+                statut = :statut,
+                position = :position
+            WHERE id = :id
+            AND proprietaire_id = :proprietaire_id";
 
-function deleteConteneur($id){
-    $sql = "DELETE FROM conteneurs 
-            WHERE id = :id";
-    
-        try {
-            $requeteSecurisee = getConnexion()->prepare($sql);
+    try {
+        $requeteSecurisee = getConnexion()->prepare($sql);
 
-            return $requeteSecurisee->execute([
-                'id' => $id
-            ]);
-        } catch (PDOException $error) {
-            return false;
-        }
+        return $requeteSecurisee->execute([
+            'nom' => $nom,
+            'statut' => $statut,
+            'position' => $position,
+            'id' => $id,
+            'proprietaire_id' => $proprietaire_id
+        ]);
+    } catch (PDOException $error) {
+        return false;
+    }
 }
+
+
 
 ?>
